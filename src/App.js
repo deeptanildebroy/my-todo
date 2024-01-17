@@ -1,3 +1,4 @@
+import "./App.css"
 import { useState } from "react";
 function App() {
 
@@ -18,16 +19,16 @@ function App() {
       
     };
     if (todo.length !== 0) {
-      setTodoList((prevTodos) => [...prevTodos, task]); //Add the todo in the existing todoList Array
+      setTodoList((prevTodos) => [...prevTodos, task]);
       setTodo("");
     }
   };
   const deleteTask = (id) => {
-    setTodoList(todoList.filter((task) => task.id !== id));
+    setTodoList((prevList) => prevList.filter((task) => task.id !== id));
   };
 
   const toggleTask = (id) => {
-    setTodoList(todoList.map((task) => {
+    setTodoList((prevList) => prevList.map((task) => {
         if(task.id === id){
             return {...task,completed:true}
         }
@@ -40,6 +41,7 @@ function App() {
     <div style={{margin: "auto", textAlign: "center" , overflow: "hidden"}}>
 
         <h1>TODO APP</h1>
+
       <input
         style={{
           padding: "10px",
@@ -59,18 +61,18 @@ function App() {
         }}
         onClick={addTask}
       >
-        Add
+       &#43;
       </button>
       <div style={{ marginTop: "20px" }}>
-        {todoList.map((task) => ( task.completed === true ? <div
+        {todoList.map((task) => ( task.completed === false ? <div
             key={task.id}
             style={{
               border: "1px solid #ccc",
               borderRadius: "5px",
               padding: "10px",
               margin: "10px",
-              color:task.completed === false ? "black" : "white",
-              backgroundColor: task.completed === false ? "white":"black",
+              color:"black",
+              backgroundColor:"white",
             }}
           >
             <h1 style={{ margin: "0" }}>{task.taskName}</h1>
@@ -97,48 +99,9 @@ function App() {
               }}
               onClick={() => deleteTask(task.id)}
             >
-              Delete
+              &#215;
             </button>
-
-          </div>:
-          <div
-            key={task.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              padding: "10px",
-              margin: "10px",
-              color:task.completed === false ? "black" : "white",
-              backgroundColor: task.completed === false ? "white":"red",
-            }}
-          >
-            <h1 style={{ margin: "0" }}>{task.taskName}</h1>
-            <p
-              style={{
-                margin: "2",
-              }}
-            >
-              {task.time}
-            </p>
-            <p
-              style={{
-                margin: "2",
-              }}
-            >
-              {task.date}
-            </p>
-            <button
-              style={{
-                padding: "8px",
-                fontSize: "14px",
-                cursor: "pointer",
-                marginLeft: "5px",
-              }}
-              onClick={() => deleteTask(task.id)}
-            >
-              Delete
-            </button>
-            <button
+                        <button
               style={{
                 padding: "8px",
                 fontSize: "14px",
@@ -147,7 +110,45 @@ function App() {
               }}
               onClick={() => toggleTask(task.id)}
             >
-                Complete
+              &#10003;
+            </button>
+          </div>:
+          <div
+            key={task.id}
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              padding: "10px",
+              margin: "10px",
+              color:"white",
+              backgroundColor:"black",
+            }}
+          >
+            <h1 style={{ margin: "0" }}>{task.taskName}</h1>
+            <p
+              style={{
+                margin: "2",
+              }}
+            >
+              {task.time}
+            </p>
+            <p
+              style={{
+                margin: "2",
+              }}
+            >
+              {task.date}
+            </p>
+            <button
+              style={{
+                padding: "8px",
+                fontSize: "14px",
+                cursor: "pointer",
+                marginLeft: "5px",
+              }}
+              onClick={() => deleteTask(task.id)}
+            >
+              &#215;
             </button>
           </div>
         ))}
